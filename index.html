@@ -2,130 +2,247 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <title>S.H.I.E.L.D. Database: Thor vs Stark</title>
+    <title>S.H.I.E.L.D. Intelligence | Thor vs Stark</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para dividir la pantalla y dar color informático */
+        :root {
+            --thor-blue: #00d4ff;
+            --thor-dark: #0a192f;
+            --stark-red: #ff3e3e;
+            --stark-gold: #ffc107;
+            --stark-dark: #1a0a0a;
+            --shield-bg: #0b0e14;
+        }
+
         body {
-            background-color: #0d1117; /* Fondo oscuro tipo terminal */
-            color: #c9d1d9;
-            font-family: 'Courier New', Courier, monospace; /* Fuente de programador */
+            background-color: var(--shield-bg);
+            color: #e6edf3;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         header {
             text-align: center;
-            padding: 20px;
-            background-color: #161b22;
-            border-bottom: 2px solid #30363d;
+            padding: 30px;
+            background: radial-gradient(circle, #1c2531 0%, #0b0e14 100%);
+            border-bottom: 3px solid #30363d;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 4px;
+            margin: 0;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
 
         .container {
-            display: flex; /* Divide la pantalla en dos */
+            display: flex;
+            flex-wrap: wrap; /* Para que en móviles se ponga uno debajo del otro */
             flex: 1;
         }
 
         .column {
             flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            border: 1px solid #30363d;
+            min-width: 350px;
+            padding: 40px;
+            transition: all 0.5s ease;
+            position: relative;
         }
 
-        /* Colores temáticos */
+        /* Efectos Thor */
         .thor-side {
-            border-left: 5px solid #50a6ff; /* Azul Thor */
-            background: linear-gradient(180deg, #0d1117 0%, #101a2b 100%);
+            background: linear-gradient(135deg, var(--shield-bg) 30%, #112240 100%);
+            border-top: 5px solid var(--thor-blue);
         }
 
+        .thor-side h2, .thor-side h3 {
+            color: var(--thor-blue);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Efectos Iron Man */
         .stark-side {
-            border-left: 5px solid #ff3e3e; /* Rojo Iron Man */
-            background: linear-gradient(180deg, #0d1117 0%, #2b1010 100%);
+            background: linear-gradient(135deg, var(--shield-bg) 30%, #401111 100%);
+            border-top: 5px solid var(--stark-red);
         }
 
-        h2 { color: #f0e68c; text-transform: uppercase; border-bottom: 1px solid; }
-        .cpp-comment { color: #6a9955; font-style: italic; }
-        .cpp-keyword { color: #569cd6; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #30363d; padding: 8px; text-align: left; }
-        th { background-color: #161b22; }
+        .stark-side h2, .stark-side h3 {
+            color: var(--stark-gold);
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+        }
 
-        img { max-width: 100%; border-radius: 8px; margin-top: 10px; filter: grayscale(30%); }
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        /* Estilo de Imágenes */
+        .img-container {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ajusta la imagen sin deformarla */
+            filter: brightness(0.8) contrast(1.2);
+            transition: transform 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
+
+        /* Tablas tipo HUD de Jarvis */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        th {
+            background: rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #8892b0;
+        }
+
+        /* Listas y detalles */
+        ul, ol {
+            line-height: 1.6;
+            color: #ccd6f6;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0b0e14;
+            color: #8892b0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            border-top: 1px solid #30363d;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>SYSTEM_OVERRIDE: AVENGERS_DOSSIER.exe</h1>
-        <p>Analizando sujetos: <span style="color: #50a6ff;">[GOD_OF_THUNDER]</span> vs <span style="color: #ff3e3e;">[IRON_MAN]</span></p>
+        <h1>ARCHIVO DE VIGILANCIA V-085</h1>
+        <p>COMPARATIVA DE POTENCIAL TÁCTICO: <span style="color: var(--thor-blue);">ASGARD</span> VS <span style="color: var(--stark-red);">STARK INDUSTRIES</span></p>
     </header>
 
     <div class="container">
         
         <section class="column thor-side">
-            <p class="cpp-comment">// Iniciando protocolo Asgard_OS...</p>
-            <p><span class="cpp-keyword">class</span> <span style="color: #4ec9b0;">God</span> { <br>
-               &nbsp;&nbsp;public: string origin = "Asgard";<br>
-               };</p>
-
-            <h2>Perfil: Thor Odinson</h2>
-            <img src="https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/815f63e0-e165-4ec2-8052-5f92c40f8e72/compose?format=webp&width=2560" alt="Thor">
+            <span class="badge" style="color: var(--thor-blue); border: 1px solid var(--thor-blue);">ORIGEN: EXTRA-DIMENSIONAL</span>
+            <h2>Thor Odinson</h2>
+            
+            <div class="img-container">
+                <img src="https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/815f63e0-e165-4ec2-8052-5f92c40f8e72/compose?format=webp&width=2560" alt="Thor">
+            </div>
 
             <table>
-                <tr><th>Atributo</th><th>Descripción</th></tr>
-                <tr><td>Título</td><td>Dios del Trueno / Rey</td></tr>
-                <tr><td>Padres</td><td>Odín y Frigga</td></tr>
-                <tr><td>Nacimiento</td><td>Asgard (Nueve Reinos)</td></tr>
+                <thead>
+                    <tr><th>Parámetro</th><th>Valor</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Especie</td><td>Asgardiano</td></tr>
+                    <tr><td>Rango</td><td>Dios del Trueno / Rey</td></tr>
+                    <tr><td>Resistencia</td><td>Nivel Cósmico</td></tr>
+                </tbody>
             </table>
 
-            <h3>Arsenal [Magic_Type]</h3>
-            <ol>
-                <li><strong>Mjolnir:</strong> Estrella moribunda forjada.</li>
-                <li><strong>Stormbreaker:</strong> Invocador de Bifrost.</li>
-                <li><strong>Cinturón:</strong> Multiplicador de fuerza x2.</li>
-            </ol>
+            <h3>Armamento Místico</h3>
+            <ul>
+                <li><strong>Mjolnir:</strong> Capacidad de canalización eléctrica y retorno automático.</li>
+                <li><strong>Stormbreaker:</strong> Hacha de batalla con acceso al puente Bifrost.</li>
+                <li><strong>Relámpago Natural:</strong> Generación de energía sin intermediarios.</li>
+            </ul>
 
-            <p class="cpp-comment">// Nota: El sujeto entiende que el sacrificio es necesario.</p>
+            <p style="font-style: italic; color: #8892b0; margin-top: 30px;">
+                "El valor de un hombre no se mide por lo que ha logrado, sino por lo que intenta."
+            </p>
         </section>
 
         <section class="column stark-side">
-            <p class="cpp-comment">// Cargando J.A.R.V.I.S. core...</p>
-            <p><span class="cpp-keyword">void</span> <span style="color: #dcdcaa;">executeRedemption</span>() { <br>
-               &nbsp;&nbsp;<span class="cpp-keyword">bool</span> isHero = <span class="cpp-keyword">true</span>;<br>
-               }</p>
+            <span class="badge" style="color: var(--stark-gold); border: 1px solid var(--stark-gold);">ORIGEN: TERRESTRE</span>
+            <h2>Tony Stark</h2>
 
-            <h2>Anthony "Tony" Stark</h2>
-            <img src="https://m.media-amazon.com/images/I/818vYmJ3p-L._AC_SL1500_.jpg" alt="Iron Man Armor">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/818vYmJ3p-L._AC_SL1500_.jpg" alt="Iron Man">
+            </div>
 
             <table>
-                <tr bgcolor="#2b1010"><th>Categoría</th><th>Nivel</th></tr>
-                <tr><td>Inteligencia</td><td>Súper Genio (LVL 12)</td></tr>
-                <tr><td>Recursos</td><td>Stark Industries CEO</td></tr>
-                <tr><td>Defensa</td><td>Nanobots MK 85</td></tr>
+                <thead>
+                    <tr><th>Sistema</th><th>Estatus</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>IA de Apoyo</td><td>F.R.I.D.A.Y. Online</td></tr>
+                    <tr><td>Armadura</td><td>Mark LXXXV (Nanotecnología)</td></tr>
+                    <tr><td>Intelecto</td><td>Nivel Genio (Clase 12)</td></tr>
+                </tbody>
             </table>
 
-            <h3>Inventario [Tech_Type]</h3>
-            <details open>
-                <summary><strong>📁 Mark LXXXV (Nano)</strong></summary>
-                <p>Estructura de partículas capaz de regenerar daño y materializar cañones de energía en T+0 segundos.</p>
+            <h3>Tecnología Avanzada</h3>
+            <details>
+                <summary style="cursor: pointer; color: var(--stark-gold); font-weight: bold;">
+                    Ver especificaciones de Nanobots
+                </summary>
+                <p style="padding: 10px; background: rgba(0,0,0,0.2); border-radius: 5px;">
+                    Partículas capaces de reconfigurarse en milisegundos para crear escudos, cuchillas o cañones de plasma según la necesidad del combate.
+                </p>
             </details>
 
-            <h3>Análisis de Fracasos</h3>
+            <h3 style="margin-top: 20px;">Hitos de Redención</h3>
             <ul>
-                <li><strong>Traficante:</strong> Redención post-Afganistán.</li>
-                <li><strong>Ultron:</strong> Error crítico de IA.</li>
-                <li><strong>Sacrificio:</strong> Portador de Gemas del Infinito.</li>
+                <li>Cierre de división de armamento Stark.</li>
+                <li>Creación del Elemento Sintético (Reactor Arc).</li>
+                <li>Protocolo de sacrificio final contra amenaza Thanos.</li>
             </ul>
-            <p class="cpp-comment">// status: "I am Iron Man."</p>
+
+            <p style="font-style: italic; color: #8892b0; margin-top: 30px;">
+                "Yo soy Iron Man."
+            </p>
         </section>
 
     </div>
 
-    <footer style="text-align: center; padding: 10px; font-size: 0.8em; border-top: 1px solid #30363d;">
-        <span class="cpp-keyword">return</span> 0; // Fin del archivo de vigilancia S.H.I.E.L.D. 2026
+    <footer>
+        CONFIDENCIAL // PROPIEDAD DE S.H.I.E.L.D. // ACCESO NIVEL 7
     </footer>
 
 </body>
